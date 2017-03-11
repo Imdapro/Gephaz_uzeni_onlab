@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <name>Engine Room</name>
+
+	<parent>
+    	<groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+    	<version>1.5.2.RELEASE</version>
+	</parent>
+
+    <groupId>hu.engineroom</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0</version>
+
+    <packaging>pom</packaging>
+    
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+    </properties>
+    
+    <modules>
+    	<module>WebApp</module>
+    	<module>SocketServer</module>
+    	<module>Common</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.12</version>
+        </dependency>
+    </dependencies>
+    
+</project>
