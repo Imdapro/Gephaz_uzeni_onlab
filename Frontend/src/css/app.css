@@ -8,8 +8,12 @@
 
 .body-main div {
     /*background-color: #e6e6e6;*/
-    padding-top: 3%;
+    /*padding-top: 3%;*/
 }
+
+/*.panel-heading {*/
+    /*padding-top: 0!important;*/
+/*}*/
 
 .navbar {
     margin-bottom: 0;

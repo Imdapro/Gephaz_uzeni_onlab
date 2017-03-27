@@ -14,6 +14,8 @@ var app_component_1 = require('./app.component');
 var app_routing_module_1 = require("./app-routing.module");
 var login_component_1 = require("./login.component");
 var messages_component_1 = require("./messages.component");
+var message_service_1 = require("./message.service");
+var message_component_1 = require("./message.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -23,10 +25,14 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 app_routing_module_1.AppRoutingModule
             ],
+            providers: [
+                message_service_1.MessageService
+            ],
             declarations: [
                 app_component_1.AppComponent,
                 login_component_1.LoginComponent,
-                messages_component_1.MessagesComponent
+                messages_component_1.MessagesComponent,
+                message_component_1.MessageComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

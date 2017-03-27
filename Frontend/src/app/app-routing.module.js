@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_component_1 = require("./login.component");
 var messages_component_1 = require("./messages.component");
+var message_component_1 = require("./message.component");
 var appRoutes = [
     {
         path: 'login',
@@ -20,6 +21,10 @@ var appRoutes = [
     {
         path: 'messages',
         component: messages_component_1.MessagesComponent
+    },
+    {
+        path: 'message/:id',
+        component: message_component_1.MessageComponent
     }
 ];
 var AppRoutingModule = (function () {

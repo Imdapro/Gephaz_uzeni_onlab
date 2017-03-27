@@ -1,1 +1,29 @@
 <h2>Üzenetek</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Tárgy
+        </th>
+        <th>
+            Feladó
+        </th>
+        <th>
+            Dátum
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let msg of messages">
+            <td>
+                <a [routerLink]="['/message', msg.id]" >{{msg.title}}</a>
+            </td>
+            <td>
+                {{msg.sender}}
+            </td>
+            <td>
+                {{msg.date}}
+            </td>
+        </tr>
+    </tbody>
+</table>

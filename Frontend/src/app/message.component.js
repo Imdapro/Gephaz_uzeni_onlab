@@ -8,24 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var message_service_1 = require("./message.service");
 var router_1 = require("@angular/router");
-var MessagesComponent = (function () {
-    function MessagesComponent(msgService, router) {
+var MessageComponent = (function () {
+    function MessageComponent(msgService, route, router) {
         this.msgService = msgService;
+        this.route = route;
         this.router = router;
-        this.messages = msgService.getMessages();
     }
-    MessagesComponent = __decorate([
+    MessageComponent.prototype.ngOnInit = function () {
+        this.message = this.msgService.getMessage(this.route.snapshot.params['id']);
+    };
+    MessageComponent = __decorate([
         core_1.Component({
-            selector: 'messages',
-            templateUrl: 'templates/messages.component.html',
+            selector: 'message',
+            templateUrl: '/templates/message.component.html',
             providers: [message_service_1.MessageService]
         }), 
-        __metadata('design:paramtypes', [message_service_1.MessageService, router_1.Router])
-    ], MessagesComponent);
-    return MessagesComponent;
+        __metadata('design:paramtypes', [message_service_1.MessageService, router_1.ActivatedRoute, router_1.Router])
+    ], MessageComponent);
+    return MessageComponent;
 }());
-exports.MessagesComponent = MessagesComponent;
-//# sourceMappingURL=messages.component.js.map
+exports.MessageComponent = MessageComponent;
+//# sourceMappingURL=message.component.js.map
