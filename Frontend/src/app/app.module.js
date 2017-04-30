@@ -16,6 +16,7 @@ var login_component_1 = require("./login.component");
 var messages_component_1 = require("./messages.component");
 var message_service_1 = require("./message.service");
 var message_component_1 = require("./message.component");
+var auth_module_1 = require('./auth.module');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -23,10 +24,11 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
-                app_routing_module_1.AppRoutingModule
+                app_routing_module_1.AppRoutingModule,
+                auth_module_1.AuthModule
             ],
             providers: [
-                message_service_1.MessageService
+                message_service_1.MessageService,
             ],
             declarations: [
                 app_component_1.AppComponent,

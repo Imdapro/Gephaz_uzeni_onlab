@@ -7,15 +7,18 @@ import {LoginComponent} from "./login.component";
 import {MessagesComponent} from "./messages.component";
 import {MessageService} from "./message.service";
 import {MessageComponent} from "./message.component";
+import {AuthModule} from './auth.module';
+
 
 @NgModule({
   imports: [
       BrowserModule,
-      AppRoutingModule
+      AppRoutingModule,
+      AuthModule
   ],
 
    providers: [
-       MessageService
+       MessageService,
    ],
 
   declarations: [

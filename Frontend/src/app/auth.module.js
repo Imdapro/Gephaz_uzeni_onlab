@@ -9,18 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Mark';
+var http_1 = require('@angular/http');
+var angular2_jwt_1 = require('angular2-jwt');
+function authHttpServiceFactory(http, options) {
+    return new angular2_jwt_1.AuthHttp(new angular2_jwt_1.AuthConfig(), http, options);
+}
+exports.authHttpServiceFactory = authHttpServiceFactory;
+var AuthModule = (function () {
+    function AuthModule() {
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            templateUrl: 'templates/app.component.html'
+    AuthModule = __decorate([
+        core_1.NgModule({
+            providers: [
+                {
+                    provide: angular2_jwt_1.AuthHttp,
+                    useFactory: authHttpServiceFactory,
+                    deps: [http_1.Http, http_1.RequestOptions]
+                }
+            ]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], AuthModule);
+    return AuthModule;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.AuthModule = AuthModule;
+//# sourceMappingURL=auth.module.js.map

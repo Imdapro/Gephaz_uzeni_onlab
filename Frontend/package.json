@@ -52,7 +52,8 @@
     "rxjs": "5.0.1",
     "systemjs": "0.19.39",
     "zone.js": "^0.7.4",
-    "angular2-websocket": "0.9.2"
+    "angular2-websocket": "0.9.2",
+    "angular2-jwt": "*"
   },
   "devDependencies": {
     "@angular/cli": "^1.0.0-rc.0",
