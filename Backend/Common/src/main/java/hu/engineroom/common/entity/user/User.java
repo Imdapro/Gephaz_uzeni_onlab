@@ -6,10 +6,11 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.List;
 
-@Entity(name = "engine_room_user")
 @Getter
 @Setter
+@Entity(name = "engine_room_user")
 public class User extends BaseEntity {
 
     @Column(unique = true)
@@ -17,6 +18,8 @@ public class User extends BaseEntity {
 
     private String password;
 
-    private UserRole role;
+    protected List<UserRole> roles;
+
+
 
 }
