@@ -1,6 +1,7 @@
-package hu.engineroom.webapp.Security;
+package hu.engineroom.webapp.configuration.security;
 
 import hu.engineroom.common.entity.user.claims.UserClaims;
+import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class UserAuthentication implements Authentication {
 
+    @Getter
     private UserClaims claims;
 
     private boolean authenticated = true;

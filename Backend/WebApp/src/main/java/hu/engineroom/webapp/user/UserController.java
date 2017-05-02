@@ -2,38 +2,64 @@ package hu.engineroom.webapp.user;
 
 
 import hu.engineroom.common.dto.user.UserDTO;
+import hu.engineroom.common.entity.user.Role;
 import hu.engineroom.common.entity.user.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import hu.engineroom.webapp.util.BaseController;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
-
-    @Autowired
-    private UserService userService;
+public class UserController extends BaseController<User, UserDTO> {
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<UserDTO> findByUsername(@RequestParam String username) {
-        User user = userService.findByUsername(username);
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return getAll();
+    }
 
-        if(user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String userId) {
+        return getById(userId);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity registerUser(@RequestBody UserDTO userDTO) {
+
+        if(userDTO != null) {
+            if(userDTO.getUsername() == null || userDTO.getUsername().isEmpty()) {
+                return ResponseEntity.badRequest().body("Username must be given!");
+            }
+
+            if(userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
+                return ResponseEntity.badRequest().body("Password must be given!");
+            }
+
+            userDTO.setRoles(Collections.singletonList(Role.USER.name()));
+            return create(userDTO);
+
         } else {
-            return ResponseEntity.ok(new UserDTO(user));
+            return ResponseEntity.badRequest().build();
         }
     }
 
-    @RequestMapping("/test")
-    public UserDTO test() {
-        return new UserDTO(userService.getTestUser());
+    //TODO: only admins
+    @RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
+    public ResponseEntity updateUser(@PathVariable String userId, @RequestBody UserDTO userDTO) {
+        return update(userId, userDTO);
     }
 
+    //TODO: only admins
+    @RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteUser(@PathVariable String userId) {
+        return delete(userId);
+    }
 
-
+    @Override
+    protected UserDTO mapDto(User entity) {
+        return new UserDTO(entity);
+    }
 }

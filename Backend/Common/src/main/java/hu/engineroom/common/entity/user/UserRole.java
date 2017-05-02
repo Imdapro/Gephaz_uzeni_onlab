@@ -13,11 +13,16 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 public class UserRole extends BaseEntity {
+
     @ManyToOne
     protected User user;
 
     @Enumerated(EnumType.STRING)
     protected Role role;
+
+    public UserRole() {
+
+    }
 
     public UserRole(User user, Role role){
         this.user = user;

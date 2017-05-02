@@ -1,24 +1,24 @@
 package hu.engineroom.webapp.user;
 
-import hu.engineroom.common.entity.user.User;
 import hu.engineroom.common.entity.user.Role;
+import hu.engineroom.common.entity.user.User;
 import hu.engineroom.common.entity.user.UserRole;
+import hu.engineroom.webapp.exception.EntityExistsException;
+import hu.engineroom.webapp.exception.EntityNotFoundException;
+import hu.engineroom.webapp.util.BaseService;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.UUID;
 
 @Service
 @CommonsLog
-public class UserService {
+public class UserService extends BaseService<User> {
 
     @Autowired
     private UserRepository userRepository;
@@ -28,45 +28,36 @@ public class UserService {
 
     @PostConstruct
     public void initialize() {
+        log.info("Injecting test user!");
+        User testUser = new User("TestUser", "1234", null);
+        testUser.setRoles(Collections.singletonList(new UserRole(testUser, Role.ADMIN)));
 
-        if(userRepository.findByUsername("TestUser") == null) {
-            log.info("Injecting test user!");
-            List<Role> roles = new ArrayList<>();
-            roles.add(Role.ADMIN);
-            try {
-                registerUser("TestUser2", "1234", roles);
-            }catch (UserAlreadyExistsException e){
-                log.debug("User already in database");
-            }
+        try {
+            create(testUser);
+        } catch (UserAlreadyExistsException e){
+            log.debug("User already in database");
         }
     }
 
-    public User getTestUser() {
-        return userRepository.findByUsername("TestUser");
-    }
+    @Override
+    public User create (User user) throws UserAlreadyExistsException   {
 
-    public ResponseEntity<String> registerUser (String username , String password, List<Role> roles) throws UserAlreadyExistsException   {
-            User user = userRepository.findByUsername(username);
-        if(user != null){
+        if(userRepository.countByUsername(user.getUsername()) > 0){
             throw new UserAlreadyExistsException();
         }
 
-       if( username != null && password != null ) {
-           log.info("Registering " + username + "with roles" + roles.toArray());
+        if(user.getUsername() == null
+                || user.getUsername().isEmpty()
+                || user.getPassword() == null
+                || user.getPassword().isEmpty()
+                || user.getRoles() == null
+                || user.getRoles().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
 
-           user = new User();
-           user.setUsername(username);
-           user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-           List<UserRole> userRoles = new ArrayList<>();
-           for ( Role role : roles){
-               userRoles.add(new UserRole(user, role));
-           }
-           user.setRoles(userRoles);
-           userRepository.save(user);
-
-       }
-        return new ResponseEntity<String>(HttpStatus.CREATED);
+        return userRepository.save(user);
     }
 
     public User login(String username, String password) throws BadCredentialsException{
@@ -75,16 +66,28 @@ public class UserService {
             if(passwordEncoder.matches(password, user.getPassword())){
                 return user;
             }else {
-                throw new BadCredentialsException("Wrong passwords");
+                throw new BadCredentialsException("Wrong password");
             }
         }throw new BadCredentialsException("Username not in database");
     }
 
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username);
+    @Override
+    public User update(UUID userId, User modifiedUser) {
+        User existing = userRepository.findOne(userId);
+
+        if(existing == null) {
+            throw new UserDoesntExistException();
+        }
+
+        modifiedUser.setId(existing.getId()); //Lazy way of coping all changed attributes
+        return userRepository.save(modifiedUser);
     }
 
-    public class UserAlreadyExistsException extends Exception {
+    public class UserAlreadyExistsException extends EntityExistsException {
+    }
+
+    public class UserDoesntExistException extends EntityNotFoundException {
+
     }
 
 }

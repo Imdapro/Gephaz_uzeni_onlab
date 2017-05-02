@@ -8,4 +8,6 @@ public abstract class BaseDTO<EntityType> implements Serializable {
 
     }
 
+    public abstract EntityType toEntity();
+
 }

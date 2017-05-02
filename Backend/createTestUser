@@ -1,0 +1,45 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list>
+      <Biscuit>
+        <option name="date" value="-1" />
+        <option name="domain" value="localhost" />
+        <option name="name" value="JSESSIONID" />
+        <option name="path" value="/" />
+        <option name="value" value="F1A54DB903F4374A31CF082472B32454" />
+      </Biscuit>
+    </list>
+  </option>
+  <option name="httpMethod" value="POST" />
+  <option name="urlBase" value="http://localhost:8080" />
+  <option name="urlPath" value="/user" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Accept" />
+        <option name="value" value="*/*" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Cache-Control" />
+        <option name="value" value="no-cache" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Content-Type" />
+        <option name="value" value="application/json" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Authorization" />
+        <option name="value" value="Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiMDFkYmY2ZC01Mjc1LTQzZDQtYTYxOS1hMzUyYWE0MWYyZDQiLCJyb2xlcyI6WyJBRE1JTiJdLCJ1c2VybmFtZSI6IlRlc3RVc2VyIn0.cYMVqtPfepANn5QXvIPlgEN8dvzSPtG_NaCOUtp7B0k" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list />
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="true" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="{   &quot;username&quot;: &quot;test&quot;,   &quot;password&quot;: &quot;1234&quot; }" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>

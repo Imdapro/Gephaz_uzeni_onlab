@@ -1,4 +1,4 @@
-package hu.engineroom.webapp.Security;
+package hu.engineroom.webapp.configuration.security;
 
 
 import hu.engineroom.common.entity.user.claims.UserClaimsMapper;
