@@ -46,6 +46,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Allow public apis
                 .antMatchers("/public/**").permitAll()
 
+                //Allow registration
+                .antMatchers(HttpMethod.POST,"/user").permitAll()
+
                 //Allow pre-flight cors
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
 

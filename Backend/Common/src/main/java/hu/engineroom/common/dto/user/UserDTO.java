@@ -33,6 +33,9 @@ public class UserDTO extends BaseDTO<User> {
         for(UserRole userRole : user.getRoles()) {
             roles.add(userRole.getRole().name());
         }
+        if(user.getId() != null){
+            this.setId(user.getId().toString());
+        }
     }
 
     @Override

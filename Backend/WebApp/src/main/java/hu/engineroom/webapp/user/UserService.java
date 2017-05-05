@@ -83,6 +83,10 @@ public class UserService extends BaseService<User> {
         return userRepository.save(modifiedUser);
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public class UserAlreadyExistsException extends EntityExistsException {
     }
 

@@ -5,18 +5,31 @@ import hu.engineroom.common.dto.user.UserDTO;
 import hu.engineroom.common.entity.user.Role;
 import hu.engineroom.common.entity.user.User;
 import hu.engineroom.webapp.util.BaseController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController<User, UserDTO> {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(method = RequestMethod.GET )
+    public ResponseEntity getAllUsers(@RequestParam (required = false) String username) {
+        if(username != null && !username.isEmpty()){
+           if(mapDto(userService.findByUsername(username)) == null){
+               ResponseEntity.notFound();
+           }else {
+               return ResponseEntity.ok(mapDto(userService.findByUsername(username)));
+           }
+        }
         return getAll();
     }
 

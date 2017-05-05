@@ -41,14 +41,16 @@ public class MessageService extends BaseService<Message> {
         User sender = userService.getOne(entity.getSender().getId());
         entity.setSender(sender);
 
-        //Gets the recipients ids from the netiy and populates them from the database
-        List<UUID> recipients = new ArrayList<>();
-        for(User userStub : entity.getRecipients()) {
-            recipients.add(userStub.getId());
+        //Gets the recipients ids from the entity and populates them from the database
+        if(entity.isBroadcast()){
+            entity.setRecipients(userRepository.findAll());
+        } else {
+            List<UUID> recipients = new ArrayList<>();
+            for (User userStub : entity.getRecipients()) {
+                recipients.add(userStub.getId());
+            }
+            entity.setRecipients(userRepository.findAll(recipients));
         }
-        entity.setRecipients(userRepository.findAll(recipients));
-
-        //TODO: impelemnt boradcast
 
         return repository.save(entity);
     }

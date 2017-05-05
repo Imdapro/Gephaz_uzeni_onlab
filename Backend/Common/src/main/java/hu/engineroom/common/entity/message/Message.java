@@ -23,10 +23,12 @@ public class Message extends BaseEntity {
     @ManyToOne
     private User sender;
 
+    private boolean broadcast;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_messages",
-            joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "messageId", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "messageId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"))
     private List<User> recipients;
 }
