@@ -13,6 +13,7 @@ var router_1 = require('@angular/router');
 var login_component_1 = require("./login.component");
 var messages_component_1 = require("./messages.component");
 var message_component_1 = require("./message.component");
+var signup_component_1 = require('./signup.component');
 var appRoutes = [
     {
         path: 'login',
@@ -25,6 +26,10 @@ var appRoutes = [
     {
         path: 'message/:id',
         component: message_component_1.MessageComponent
+    },
+    {
+        path: 'signup',
+        component: signup_component_1.SignUpComponent
     }
 ];
 var AppRoutingModule = (function () {

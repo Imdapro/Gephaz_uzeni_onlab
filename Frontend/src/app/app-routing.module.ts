@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./login.component";
 import {MessagesComponent} from "./messages.component";
 import {MessageComponent} from "./message.component";
+import {SignUpComponent} from './signup.component';
 
 const appRoutes: Routes = [
     {
@@ -16,6 +17,10 @@ const appRoutes: Routes = [
     {
         path: 'message/:id',
         component: MessageComponent
+    },
+    {
+        path: 'signup',
+        component: SignUpComponent
     }
 ];
 

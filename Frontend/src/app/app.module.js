@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var app_routing_module_1 = require("./app-routing.module");
 var login_component_1 = require("./login.component");
@@ -17,6 +19,10 @@ var messages_component_1 = require("./messages.component");
 var message_service_1 = require("./message.service");
 var message_component_1 = require("./message.component");
 var auth_module_1 = require('./auth.module');
+var websocket_service_1 = require('./websocket.service');
+var auth_service_1 = require('./auth.service');
+var signup_component_1 = require('./signup.component');
+var angular2_jwt_1 = require('angular2-jwt');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,16 +31,26 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 app_routing_module_1.AppRoutingModule,
-                auth_module_1.AuthModule
+                auth_module_1.AuthModule,
+                forms_1.FormsModule,
+                http_1.HttpModule
             ],
             providers: [
                 message_service_1.MessageService,
+                websocket_service_1.WebSocketService,
+                auth_service_1.AuthenticationService,
+                {
+                    provide: angular2_jwt_1.AuthHttp,
+                    useFactory: auth_module_1.authHttpServiceFactory,
+                    deps: [http_1.Http, http_1.RequestOptions]
+                }
             ],
             declarations: [
                 app_component_1.AppComponent,
                 login_component_1.LoginComponent,
                 messages_component_1.MessagesComponent,
-                message_component_1.MessageComponent
+                message_component_1.MessageComponent,
+                signup_component_1.SignUpComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

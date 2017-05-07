@@ -10,15 +10,20 @@ export class  MessageService {
         // TODO: lekérni a szerverről az üzeneteket
     }
 
-    getMessages(){
+
+    getMessages() {
         return this.messages;
     }
 
     getMessage(id: number) {
-        for(var i = 0, iLen = this.messages.length; i < iLen; i++) {
-            if(this.messages[i].id == id)
+        for (let i = 0, iLen = this.messages.length; i < iLen; i++) {
+            if (this.messages[i].id == id)
                 return this.messages[i];
         }
         return null;
+    }
+
+    add(msg: Message) {
+        // TODO
     }
 }

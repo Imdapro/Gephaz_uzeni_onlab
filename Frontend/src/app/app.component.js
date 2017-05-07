@@ -9,18 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Mark';
+var auth_service_1 = require('./auth.service');
+var AppComponent /* implements OnInit, OnDestroy*/ = (function () {
+    function AppComponent /* implements OnInit, OnDestroy*/(auth) {
+        this.auth = auth;
     }
-    AppComponent = __decorate([
+    AppComponent /* implements OnInit, OnDestroy*/ = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'templates/app.component.html'
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [auth_service_1.AuthenticationService])
+    ], AppComponent /* implements OnInit, OnDestroy*/);
+    return AppComponent /* implements OnInit, OnDestroy*/;
 }());
-exports.AppComponent = AppComponent;
+exports.AppComponent /* implements OnInit, OnDestroy*/ = AppComponent /* implements OnInit, OnDestroy*/;
 //# sourceMappingURL=app.component.js.map

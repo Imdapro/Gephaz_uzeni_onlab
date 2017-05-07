@@ -17,6 +17,9 @@ var MessageService = (function () {
         }
         return null;
     };
+    MessageService.prototype.add = function (msg) {
+        // TODO
+    };
     return MessageService;
 }());
 exports.MessageService = MessageService;
