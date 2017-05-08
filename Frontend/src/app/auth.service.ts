@@ -18,14 +18,17 @@ export class  AuthenticationService {
     public login(username: string, password: string)  {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this.http.post(restApi + '/auth', JSON.stringify({ username: username, password: password }), options)
+        return this.http.post(restApi + '/auth', JSON.stringify({ username: username, password: password }), options)
             .toPromise().then((response) => {
                 let token = response.json() && response.json().token;
                 if (token) {
                     this.token = token;
                     localStorage.setItem('token', JSON.stringify({ username: username, token: token }));
+                    return true;
                 }
+                return false;
         }).catch((data) => {
+            return false;
         });
     }
 

@@ -20,8 +20,18 @@ var LoginComponent = (function () {
         this.password = '';
     }
     LoginComponent.prototype.login = function () {
-        this.authService.login(this.username, this.password);
-        this.router.navigate(['./messages']);
+        var _this = this;
+        this.authService.login(this.username, this.password).then(function (data) {
+            if (data == true) {
+                console.log('sikeres bejelentkezés');
+                _this.router.navigate(['./messages']);
+            }
+            else {
+                console.log('sikertelen bejelentkezés');
+            }
+        }).catch(function () {
+            console.log('sikertelen bejelentkezés');
+        });
     };
     LoginComponent = __decorate([
         core_1.Component({

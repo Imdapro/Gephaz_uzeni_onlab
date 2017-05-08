@@ -23,6 +23,7 @@ var websocket_service_1 = require('./websocket.service');
 var auth_service_1 = require('./auth.service');
 var signup_component_1 = require('./signup.component');
 var angular2_jwt_1 = require('angular2-jwt');
+var new_message_component_1 = require('./new-message.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -50,7 +51,8 @@ var AppModule = (function () {
                 login_component_1.LoginComponent,
                 messages_component_1.MessagesComponent,
                 message_component_1.MessageComponent,
-                signup_component_1.SignUpComponent
+                signup_component_1.SignUpComponent,
+                new_message_component_1.NewMessageComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

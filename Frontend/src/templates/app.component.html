@@ -19,7 +19,7 @@
                 <li *ngIf="auth.loggedIn()"><a routerLink="/messages" routerLinkActive="active">Üzenetek</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li *ngIf="auth.loggedIn()"><a href="#" (click)="auth.logout()">Kijelentkezés</a></li>
+                <li *ngIf="auth.loggedIn()"><a href="#" (click)="logout()">Kijelentkezés</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

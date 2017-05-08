@@ -2,13 +2,15 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WebSocketService} from './websocket.service';
 import {MessageService} from './message.service';
 import {AuthenticationService} from './auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'my-app',
   templateUrl: 'templates/app.component.html'
 })
 export class AppComponent /* implements OnInit, OnDestroy*/ {
-    constructor(public auth: AuthenticationService) {
+    constructor(public auth: AuthenticationService, private router: Router) {
+        this.auth.logout();
     }
     // public messages: Array<any>;
     // public isShown: boolean;
@@ -52,4 +54,8 @@ export class AppComponent /* implements OnInit, OnDestroy*/ {
     // hideMessage(): void {
     //     this.isShown = false;
     // }
+    public logout() {
+        this.auth.logout();
+        this.router.navigate(['./']);
+    }
 }

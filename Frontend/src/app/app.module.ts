@@ -2,6 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {Http, HttpModule, RequestOptions} from '@angular/http';
+import { AlertModule, BsDropdownModule } from 'ng2-bootstrap';
 
 import { AppComponent }  from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
@@ -14,6 +15,7 @@ import {WebSocketService} from './websocket.service';
 import {AuthenticationService} from './auth.service';
 import {SignUpComponent} from './signup.component';
 import {AuthHttp} from 'angular2-jwt';
+import {NewMessageComponent} from './new-message.component';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import {AuthHttp} from 'angular2-jwt';
       LoginComponent,
       MessagesComponent,
       MessageComponent,
-      SignUpComponent
+      SignUpComponent,
+      NewMessageComponent
   ],
   bootstrap:    [ AppComponent ]
 })

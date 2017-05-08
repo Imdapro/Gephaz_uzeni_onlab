@@ -18,7 +18,15 @@ export class LoginComponent {
     }
 
     public login() {
-        this.authService.login(this.username, this.password);
-        this.router.navigate(['./messages']);
+        this.authService.login(this.username, this.password).then((data) => {
+                if (data == true) {
+                    console.log('sikeres bejelentkezés');
+                    this.router.navigate(['./messages']);
+                } else {
+                    console.log('sikertelen bejelentkezés');
+                }
+            }).catch(() => {
+                console.log('sikertelen bejelentkezés');
+        });
     }
 }

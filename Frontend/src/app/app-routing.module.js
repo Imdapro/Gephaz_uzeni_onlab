@@ -14,10 +14,15 @@ var login_component_1 = require("./login.component");
 var messages_component_1 = require("./messages.component");
 var message_component_1 = require("./message.component");
 var signup_component_1 = require('./signup.component');
+var new_message_component_1 = require('./new-message.component');
 var appRoutes = [
     {
         path: 'login',
         component: login_component_1.LoginComponent
+    },
+    {
+        path: 'messages/new',
+        component: new_message_component_1.NewMessageComponent
     },
     {
         path: 'messages',

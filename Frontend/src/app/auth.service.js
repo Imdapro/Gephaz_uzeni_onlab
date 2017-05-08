@@ -23,14 +23,17 @@ var AuthenticationService = (function () {
         var _this = this;
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        this.http.post(config_1.restApi + '/auth', JSON.stringify({ username: username, password: password }), options)
+        return this.http.post(config_1.restApi + '/auth', JSON.stringify({ username: username, password: password }), options)
             .toPromise().then(function (response) {
             var token = response.json() && response.json().token;
             if (token) {
                 _this.token = token;
                 localStorage.setItem('token', JSON.stringify({ username: username, token: token }));
+                return true;
             }
+            return false;
         }).catch(function (data) {
+            return false;
         });
     };
     AuthenticationService.prototype.logout = function () {
