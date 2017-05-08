@@ -13,12 +13,14 @@ var Message = (function () {
         this.date = date;
         this.body = body;
         this.broadcast = broadcast;
+        this.recipients = [];
     }
     Message.prototype.getJson = function () {
         return {
             title: this.title,
             body: this.body,
-            broadcast: this.broadcast
+            broadcast: this.broadcast,
+            recipients: []
         };
     };
     return Message;

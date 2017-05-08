@@ -56,9 +56,9 @@ var MessageService = (function () {
         this.messages.push(msg);
     };
     MessageService.prototype.sendMessage = function (msg) {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_1.RequestOptions({ headers: headers });
-        return this.http.post(config_1.restApi + '/message', JSON.stringify(msg.getJson()), options)
+        // let headers = new Headers({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers });
+        return this.authHttp.post(config_1.restApi + '/message', JSON.stringify(msg.getJson()))
             .toPromise().then(function (data) {
             return true;
         }).catch(function (err) {

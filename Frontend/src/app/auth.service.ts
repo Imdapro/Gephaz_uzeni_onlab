@@ -23,7 +23,7 @@ export class  AuthenticationService {
                 let token = response.json() && response.json().token;
                 if (token) {
                     this.token = token;
-                    localStorage.setItem('token', JSON.stringify({ username: username, token: token }));
+                    localStorage.setItem('token', token);
                     return true;
                 }
                 return false;

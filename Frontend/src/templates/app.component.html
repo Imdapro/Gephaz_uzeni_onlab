@@ -27,6 +27,9 @@
 
 <div class="body-main">
     <div class="col-sm-12">
+        <ng2-messages></ng2-messages>
+
+        <!--<button (click)="msg.success('You are awesome!')">Click me fast!</button>-->
         <div *ngIf="isShown"></div>
         <router-outlet></router-outlet>
     </div>

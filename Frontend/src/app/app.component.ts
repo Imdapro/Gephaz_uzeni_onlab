@@ -1,15 +1,22 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Directive, OnDestroy, OnInit} from '@angular/core';
 import {WebSocketService} from './websocket.service';
-import {MessageService} from './message.service';
+// import {MessageService} from './message.service';
 import {AuthenticationService} from './auth.service';
 import {Router} from '@angular/router';
+import {MessagesService} from './ng2-messages/ng2-messages.service';
+import {MessagesComponent} from './ng2-messages/ng2-messages.component';
+
 
 @Component({
-  selector: 'my-app',
-  templateUrl: 'templates/app.component.html'
+    selector: 'my-app',
+    templateUrl: 'templates/app.component.html',
+})
+
+@Directive({
+
 })
 export class AppComponent /* implements OnInit, OnDestroy*/ {
-    constructor(public auth: AuthenticationService, private router: Router) {
+    constructor(public auth: AuthenticationService, private router: Router, public msg: MessagesService) {
         this.auth.logout();
     }
     // public messages: Array<any>;

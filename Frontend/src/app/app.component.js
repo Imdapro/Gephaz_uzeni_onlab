@@ -9,12 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+// import {MessageService} from './message.service';
 var auth_service_1 = require('./auth.service');
 var router_1 = require('@angular/router');
+var ng2_messages_service_1 = require('./ng2-messages/ng2-messages.service');
 var AppComponent /* implements OnInit, OnDestroy*/ = (function () {
-    function AppComponent /* implements OnInit, OnDestroy*/(auth, router) {
+    function AppComponent /* implements OnInit, OnDestroy*/(auth, router, msg) {
         this.auth = auth;
         this.router = router;
+        this.msg = msg;
         this.auth.logout();
     }
     // public messages: Array<any>;
@@ -66,9 +69,10 @@ var AppComponent /* implements OnInit, OnDestroy*/ = (function () {
     AppComponent /* implements OnInit, OnDestroy*/ = __decorate([
         core_1.Component({
             selector: 'my-app',
-            templateUrl: 'templates/app.component.html'
-        }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthenticationService, router_1.Router])
+            templateUrl: 'templates/app.component.html',
+        }),
+        core_1.Directive({}), 
+        __metadata('design:paramtypes', [auth_service_1.AuthenticationService, router_1.Router, ng2_messages_service_1.MessagesService])
     ], AppComponent /* implements OnInit, OnDestroy*/);
     return AppComponent /* implements OnInit, OnDestroy*/;
 }());

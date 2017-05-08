@@ -5,6 +5,7 @@ export class Message {
     date: string;
     body: string;
     broadcast: boolean;
+    public recipients: Array<string>;
 
     constructor(title: string = "" , body: string = "" , broadcast: boolean = false, id:number = 0, sender: string = "", date: string = ""){
         this.id = id;
@@ -13,13 +14,15 @@ export class Message {
         this.date = date;
         this.body = body;
         this.broadcast = broadcast;
+        this.recipients = [];
     }
 
     public getJson() {
         return {
             title: this.title,
             body: this.body,
-            broadcast: this.broadcast
+            broadcast: this.broadcast,
+            recipients: []
         };
     }
 }

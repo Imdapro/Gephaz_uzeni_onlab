@@ -16,6 +16,8 @@ import {AuthenticationService} from './auth.service';
 import {SignUpComponent} from './signup.component';
 import {AuthHttp} from 'angular2-jwt';
 import {NewMessageComponent} from './new-message.component';
+import {MessagesService} from './ng2-messages/ng2-messages.service';
+import {MessagesComponent as MsgComponent} from './ng2-messages/ng2-messages.component';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import {NewMessageComponent} from './new-message.component';
        MessageService,
        WebSocketService,
        AuthenticationService,
+       MessagesService,
        {
            provide: AuthHttp,
            useFactory: authHttpServiceFactory,
@@ -44,7 +47,8 @@ import {NewMessageComponent} from './new-message.component';
       MessagesComponent,
       MessageComponent,
       SignUpComponent,
-      NewMessageComponent
+      NewMessageComponent,
+      MsgComponent
   ],
   bootstrap:    [ AppComponent ]
 })

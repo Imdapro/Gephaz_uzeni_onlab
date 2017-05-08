@@ -24,6 +24,8 @@ var auth_service_1 = require('./auth.service');
 var signup_component_1 = require('./signup.component');
 var angular2_jwt_1 = require('angular2-jwt');
 var new_message_component_1 = require('./new-message.component');
+var ng2_messages_service_1 = require('./ng2-messages/ng2-messages.service');
+var ng2_messages_component_1 = require('./ng2-messages/ng2-messages.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -40,6 +42,7 @@ var AppModule = (function () {
                 message_service_1.MessageService,
                 websocket_service_1.WebSocketService,
                 auth_service_1.AuthenticationService,
+                ng2_messages_service_1.MessagesService,
                 {
                     provide: angular2_jwt_1.AuthHttp,
                     useFactory: auth_module_1.authHttpServiceFactory,
@@ -52,7 +55,8 @@ var AppModule = (function () {
                 messages_component_1.MessagesComponent,
                 message_component_1.MessageComponent,
                 signup_component_1.SignUpComponent,
-                new_message_component_1.NewMessageComponent
+                new_message_component_1.NewMessageComponent,
+                ng2_messages_component_1.MessagesComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var auth_service_1 = require('./auth.service');
 var router_1 = require('@angular/router');
+var ng2_messages_service_1 = require('./ng2-messages/ng2-messages.service');
 var LoginComponent = (function () {
-    function LoginComponent(http, authService, router) {
+    function LoginComponent(http, authService, router, msg) {
         this.authService = authService;
         this.router = router;
+        this.msg = msg;
         this.username = '';
         this.password = '';
     }
@@ -25,9 +27,11 @@ var LoginComponent = (function () {
             if (data == true) {
                 console.log('sikeres bejelentkezés');
                 _this.router.navigate(['./messages']);
+                _this.msg.success('Sikeres bejelentkezés');
             }
             else {
                 console.log('sikertelen bejelentkezés');
+                _this.msg.error('Sikertelen bejelentkezés');
             }
         }).catch(function () {
             console.log('sikertelen bejelentkezés');
@@ -38,7 +42,7 @@ var LoginComponent = (function () {
             selector: 'login',
             templateUrl: 'templates/login.component.html'
         }), 
-        __metadata('design:paramtypes', [http_1.Http, auth_service_1.AuthenticationService, router_1.Router])
+        __metadata('design:paramtypes', [http_1.Http, auth_service_1.AuthenticationService, router_1.Router, ng2_messages_service_1.MessagesService])
     ], LoginComponent);
     return LoginComponent;
 }());

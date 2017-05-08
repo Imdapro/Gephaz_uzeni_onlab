@@ -1,7 +1,11 @@
 <h2>Új üzenet</h2>
 <div>
     <div class="form-group">
-        <label for="title">Cím:</label>
+        <label for="recipients">Címzettek:</label>
+        <input [(ngModel)]="recipients" type="text" class="form-control" id="recipients">
+    </div>
+    <div class="form-group">
+        <label for="title">Tárgy:</label>
         <input [(ngModel)]="title" type="text" class="form-control" id="title">
     </div>
 
