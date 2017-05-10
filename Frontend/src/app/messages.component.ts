@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component} from '@angular/core';
 import {MessageService} from "./message.service";
 import {Message} from "./Message";
 import {Router} from "@angular/router";
@@ -10,9 +10,11 @@ import {Router} from "@angular/router";
 })
 
 export class MessagesComponent {
-    messages: Message[];
+    public messages: Array<Message>;
 
     constructor(private msgService: MessageService, private router: Router) {
-        this.messages = msgService.getMessages();
+        msgService.getMessages().then((data) => {
+            this.messages = data;
+        });
     }
 }

@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {MessageService} from "./message.service";
 import {Message} from "./Message";
 import {ActivatedRoute, Router} from "@angular/router";
+import {MessagesService} from './ng2-messages/ng2-messages.service';
 
 @Component({
     selector: 'message',
@@ -9,14 +10,19 @@ import {ActivatedRoute, Router} from "@angular/router";
     providers: [ MessageService ]
 })
 
-export class MessageComponent{
-    message: Message;
+export class MessageComponent {
+    public message: Message;
 
-    constructor(private msgService: MessageService, private route: ActivatedRoute, private router: Router) {
-
+    constructor(private msgService: MessageService, private route: ActivatedRoute, private router: Router, private alertMsg: MessagesService) {
     }
 
-    ngOnInit(){
-        this.message = this.msgService.getMessage(this.route.snapshot.params['id']);
+    ngOnInit() {
+        this.message = new Message();
+        this.msgService.getMessage(this.route.snapshot.params['id']).then((data) => {
+            this.message = data;
+        });
+        // if ((this.message = this.msgService.getMessage(this.route.snapshot.params['id'])) == null) {
+        //     this.alertMsg.error('Hiba történt!');
+        // }
     }
 }

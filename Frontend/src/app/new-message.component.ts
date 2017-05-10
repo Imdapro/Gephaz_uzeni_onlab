@@ -4,6 +4,7 @@ import {Message} from './Message';
 import {AuthHttp} from 'angular2-jwt';
 import {restApi} from './config';
 import {RequestOptions, URLSearchParams} from '@angular/http';
+import {MessagesService} from './ng2-messages/ng2-messages.service';
 
 @Component({
     selector: 'new-message',
@@ -16,7 +17,7 @@ export class NewMessageComponent {
     public broadcast: boolean;
     public recipients: string;
 
-    constructor(private msgService: MessageService, private authHttp: AuthHttp) {
+    constructor(private msgService: MessageService, private authHttp: AuthHttp, private alertMsg: MessagesService) {
         this.body = '';
         this.title = '';
         this.broadcast = false;
@@ -41,6 +42,8 @@ export class NewMessageComponent {
             .then((data) => {
                 recipients.push(data.json().id);
                 return this.getRecipientIds(recipientList, recipients, i + 1);
+            }).catch((data) => {
+                this.alertMsg.error('Nem létezik ilyen felhasználó!');
             });
     }
 

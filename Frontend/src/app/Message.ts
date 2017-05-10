@@ -1,13 +1,13 @@
 export class Message {
     id: number;
-    title: string;
+    public title: string;
     sender: string;
-    date: string;
+    public date: string;
     body: string;
     broadcast: boolean;
     public recipients: Array<string>;
 
-    constructor(title: string = "" , body: string = "" , broadcast: boolean = false, id:number = 0, sender: string = "", date: string = ""){
+    constructor(title: string = "" , body: string = "" , broadcast: boolean = false, id: number =  0, sender: string = "", date: string = ""){
         this.id = id;
         this.title = title;
         this.sender = sender;
