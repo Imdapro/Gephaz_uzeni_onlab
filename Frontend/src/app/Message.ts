@@ -22,7 +22,7 @@ export class Message {
             title: this.title,
             body: this.body,
             broadcast: this.broadcast,
-            recipients: []
+            recipients: this.recipients
         };
     }
 }

@@ -23,31 +23,43 @@ export class NewMessageComponent {
         this.recipients = '';
     }
 
+    public getRecipientIds(recipientList: Array<string>, recipients: Array<string>, i: number): Promise<Array<string>> {
+        if (i >= recipientList.length) {
+            return new Promise(resolve => {
+                resolve(recipients);
+            }).then((rec) => {
+                return rec;
+            });
+        }
+        console.log(recipientList[i]);
+        let param: URLSearchParams = new URLSearchParams();
+        param.set('username', recipientList[i]);
+        let requestOptions = new RequestOptions();
+        requestOptions.search = param;
+
+        return this.authHttp.get(restApi + '/user', { search: param }).toPromise()
+            .then((data) => {
+                recipients.push(data.json().id);
+                return this.getRecipientIds(recipientList, recipients, i + 1);
+            });
+    }
+
     public send() {
         let recipientList = this.recipients.split(',');
         let msg = new Message(this.title, this.body, this.broadcast);
 
         let recipients: Array<string> = [];
-        for (let i = 0; i < recipientList.length; i++) {
-            console.log(recipientList[i]);
-            let param: URLSearchParams = new URLSearchParams();
-            param.set('username', recipientList[i]);
-            let requestOptions = new RequestOptions();
-            requestOptions.search = param;
 
-            this.authHttp.get(restApi + '/user', { search: param }).toPromise()
-                .then((data) => {
-                    recipients.push(data.json().id);
-                });
-        }
-        msg.recipients = recipients;
-
-        this.msgService.sendMessage(msg).then((data) => {
-            if (data == true) {
-                console.log('Sikeres küldés');
-            } else {
-                console.log('Sikertelen küldés');
-            }
+        this.getRecipientIds(recipientList, recipients, 0).then((recip) => {
+            msg.recipients = recip;
+            console.log(recip[0]);
+            this.msgService.sendMessage(msg).then((data) => {
+                if (data == true) {
+                    console.log('Sikeres küldés');
+                } else {
+                    console.log('Sikertelen küldés');
+                }
+            });
         });
     }
 }

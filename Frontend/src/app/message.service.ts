@@ -53,10 +53,11 @@ export class  MessageService {
     }
 
     sendMessage(msg: Message) {
-        // let headers = new Headers({ 'Content-Type': 'application/json' });
-        // let options = new RequestOptions({ headers: headers });
+        console.log("küldés...");
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
 
-        return this.authHttp.post(restApi + '/message', JSON.stringify(msg.getJson()))
+        return this.authHttp.post(restApi + '/message', JSON.stringify(msg.getJson()), options)
             .toPromise().then((data) => {
                 return true;
         }).catch((err) => {
