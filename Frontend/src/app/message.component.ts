@@ -20,9 +20,6 @@ export class MessageComponent {
         this.message = new Message();
         this.msgService.getMessage(this.route.snapshot.params['id']).then((data) => {
             this.message = data;
-        });
-        // if ((this.message = this.msgService.getMessage(this.route.snapshot.params['id'])) == null) {
-        //     this.alertMsg.error('Hiba történt!');
-        // }
+        }).catch((err) => console.log('Hiba történt az üzenetek lekérése közben!'));
     }
 }

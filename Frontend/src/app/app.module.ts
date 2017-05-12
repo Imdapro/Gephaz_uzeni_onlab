@@ -18,6 +18,8 @@ import {AuthHttp} from 'angular2-jwt';
 import {NewMessageComponent} from './new-message.component';
 import {MessagesService} from './ng2-messages/ng2-messages.service';
 import {MessagesComponent as MsgComponent} from './ng2-messages/ng2-messages.component';
+import {EngineRoomMessage} from './engine-room-message.component';
+import {AuthGuard} from './auth-guard.service';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import {MessagesComponent as MsgComponent} from './ng2-messages/ng2-messages.com
        MessageService,
        WebSocketService,
        AuthenticationService,
+       AuthGuard,
        MessagesService,
        {
            provide: AuthHttp,
@@ -48,7 +51,8 @@ import {MessagesComponent as MsgComponent} from './ng2-messages/ng2-messages.com
       MessageComponent,
       SignUpComponent,
       NewMessageComponent,
-      MsgComponent
+      MsgComponent,
+      EngineRoomMessage
   ],
   bootstrap:    [ AppComponent ]
 })

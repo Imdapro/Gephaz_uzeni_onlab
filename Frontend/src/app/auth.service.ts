@@ -15,6 +15,12 @@ export class  AuthenticationService {
         this.jwtHelper = new JwtHelper();
     }
 
+    /**
+     * Elküldi a bejelntkezési adatokat, majd a kapott tokent eltárolja a localstorge-ban.
+     * @param username
+     * @param password
+     * @returns {Promise<boolean>} Ahhoz kell, hogy el tudja dönteni a hívó, hogy megtörtént-e már a bejelentkezés
+     */
     public login(username: string, password: string)  {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -32,12 +38,19 @@ export class  AuthenticationService {
         });
     }
 
+    /**
+     * Törli a tokent a localstorage-ból.
+     */
     public logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('token');
     }
 
+    /**
+     * Eldönti, hogy be vagyunk-e jelentkezve. Megvizsgálja, hogy van-e token, és nem járt-e le.
+     * @returns {boolean}
+     */
     public loggedIn() {
         return tokenNotExpired();
     }

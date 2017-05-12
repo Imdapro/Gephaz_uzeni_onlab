@@ -15,7 +15,7 @@
     </div>
 
     <div class="checkbox">
-        <label><input [(ngModel)]="broadcast" type="checkbox">Broadcast</label>
+        <label><input [ngModel]="broadcast" (change)="onCheck()" type="checkbox">Broadcast</label>
     </div>
     <button (click)="send()" class="btn btn-primary">Küldés</button>
 </div>

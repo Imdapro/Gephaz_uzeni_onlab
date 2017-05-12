@@ -5,6 +5,7 @@ import {MessagesComponent} from "./messages.component";
 import {MessageComponent} from "./message.component";
 import {SignUpComponent} from './signup.component';
 import {NewMessageComponent} from './new-message.component';
+import {AuthGuard} from './auth-guard.service';
 
 const appRoutes: Routes = [
     {
@@ -13,15 +14,18 @@ const appRoutes: Routes = [
     },
     {
         path: 'messages/new',
-        component: NewMessageComponent
+        component: NewMessageComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'messages',
-        component: MessagesComponent
+        component: MessagesComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'message/:id',
-        component: MessageComponent
+        component: MessageComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'signup',

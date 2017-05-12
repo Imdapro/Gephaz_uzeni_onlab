@@ -65,4 +65,9 @@ export class NewMessageComponent {
             });
         });
     }
+
+    onCheck() {
+        this.broadcast = !this.broadcast;
+        console.log(this.broadcast);
+    }
 }

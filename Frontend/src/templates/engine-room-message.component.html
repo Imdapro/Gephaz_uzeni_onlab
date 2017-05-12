@@ -1,0 +1,4 @@
+<div *ngIf="show" class="engine-room-box">
+    <div (click)="hideMessage()" class="engine-room-box-title">A Gépház üzeni!<span class="glyphicon glyphicon-remove engine-room-box-close" aria-hidden="true"></span></div>
+    <div class="engine-room-box-body">{{message.body}}</div>
+</div>

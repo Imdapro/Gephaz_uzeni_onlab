@@ -1,16 +1,23 @@
 import {Message} from "./Message";
-import {Http, RequestOptions, Headers, URLSearchParams} from '@angular/http';
+import {Http, RequestOptions, Headers, URLSearchParams, Response} from '@angular/http';
 import {restApi} from './config';
 import {AuthenticationService} from './auth.service';
 import {Injectable} from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class  MessageService {
-    private messages: Message[] = [
-    ];
+    private messages: Array<Message>;
+    private oldMessages: Array<Message>;
+    private isFirst: boolean;
 
     constructor(private http: Http, private auth: AuthenticationService, private authHttp: AuthHttp) {
+        this.isFirst = true;
+        this.messages = [];
+        this.oldMessages = [];
+        this.getMessages().then((data) => this.oldMessages = data).catch(() => console.log('Hiba az üzenet lekérésnél!'));
+        this.oldMessages = this.messages;
     }
 
     /*
@@ -22,21 +29,25 @@ export class  MessageService {
     }
 
     /*
-     * A megadott id-jű
+     * A megadott id-jű üzenettel tér vissza
      */
     getMessage(id: number): Promise<Message> {
         return new Promise(resolve => {
             this.getMessages().then((data) => {
                resolve(data[id]);
-            });
+            }).catch();
         }).then((data) => {
             return data;
-        });
+        }).catch();
     }
 
+    /*
+     * Lekéri az összes üzenetet a szereverről. A lekért üzenetekhez
+     * lekéri a feladók felhasználónevét, mivel a user id-jüket kapjuk meg alapból.
+     */
     public pullMessages(): Promise<Array<Message>> {
         if (!this.auth.loggedIn()) {
-            return;
+            return Promise.reject(this.messages);
         }
         return this.authHttp.get(restApi + '/message').toPromise()
             .then((data) => {
@@ -57,13 +68,16 @@ export class  MessageService {
                         });
                     }
                 });
-        });
+        }).catch();
     }
 
     add(msg: Message) {
         this.messages.push(msg);
     }
 
+    /*
+     * A paraméterül kapott üzenetet elküldi.
+     */
     sendMessage(msg: Message) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -75,5 +89,43 @@ export class  MessageService {
             console.log('hiba: ' + err.status);
             return false;
         });
+    }
+
+    /*
+     * 5 sec-enként pollozza a szervert, lekéri az üzeneteket, megvizsgálja, hogy van-e új üzenet, ha van akkor visszaadja
+     */
+    poll() {
+        return Observable.interval(5000).switchMap(() => Observable.fromPromise(this.getMessages()).map((res) => {
+            if (res === null) {
+                this.oldMessages = this.messages;
+                return Observable.throw(null);
+            }
+
+            if (this.oldMessages.length === this.messages.length) {
+                //console.log(this.oldMessages.length + '' + this.messages.length);
+                return;
+            } else {
+                for (let i = 0; i < this.messages.length; i++) {
+                    let found = false;
+                    for (let j = 0; j < this.oldMessages.length; j++) {
+                        if (this.messages[i].title === this.oldMessages[j].title && this.messages[i].body === this.oldMessages[j].body &&
+                            this.messages[i].date === this.oldMessages[j].date) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        this.oldMessages = this.messages;
+                        if (this.isFirst) {
+                            this.isFirst = false;
+                        } else {
+                            // if (this.messages[i].broadcast) {
+                                return this.messages[i];
+                            // }
+                        }
+                    }
+                }
+            }
+        }));
     }
 }

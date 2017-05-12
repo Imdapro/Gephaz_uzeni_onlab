@@ -3,7 +3,7 @@ export class Message {
     public title: string;
     sender: string;
     public date: string;
-    body: string;
+    public body: string;
     broadcast: boolean;
     public recipients: Array<string>;
 
