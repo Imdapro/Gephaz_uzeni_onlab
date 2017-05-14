@@ -32,13 +32,17 @@ export class  MessageService {
      * A megadott id-jű üzenettel tér vissza
      */
     getMessage(id: number): Promise<Message> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.getMessages().then((data) => {
                resolve(data[id]);
-            }).catch();
+            }).catch((err) => {
+                Promise.reject(err);
+            });
         }).then((data) => {
             return data;
-        }).catch();
+        }).catch((err) => {
+            Promise.reject(err);
+        });
     }
 
     /*
@@ -68,7 +72,9 @@ export class  MessageService {
                         });
                     }
                 });
-        }).catch();
+        }).catch((err) => {
+                Promise.reject(err);
+        });
     }
 
     add(msg: Message) {
@@ -102,7 +108,7 @@ export class  MessageService {
             }
 
             if (this.oldMessages.length === this.messages.length) {
-                //console.log(this.oldMessages.length + '' + this.messages.length);
+                // console.log(this.oldMessages.length + '' + this.messages.length);
                 return;
             } else {
                 for (let i = 0; i < this.messages.length; i++) {

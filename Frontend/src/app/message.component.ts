@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 import {MessageService} from "./message.service";
 import {Message} from "./Message";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,7 +10,7 @@ import {MessagesService} from './ng2-messages/ng2-messages.service';
     providers: [ MessageService ]
 })
 
-export class MessageComponent {
+export class MessageComponent implements OnInit {
     public message: Message;
 
     constructor(private msgService: MessageService, private route: ActivatedRoute, private router: Router, private alertMsg: MessagesService) {
