@@ -18,11 +18,19 @@ export class Message {
     }
 
     public getJson() {
-        return {
-            title: this.title,
-            body: this.body,
-            broadcast: this.broadcast,
-            recipients: this.recipients
-        };
+        if (this.recipients.length === 0 ) {
+            return {
+                title: this.title,
+                body: this.body,
+                broadcast: this.broadcast,
+            };
+        } else {
+            return {
+                title: this.title,
+                body: this.body,
+                broadcast: this.broadcast,
+                recipients: this.recipients
+            };
+        }
     }
 }

@@ -52,17 +52,23 @@ export class NewMessageComponent {
         let msg = new Message(this.title, this.body, this.broadcast);
 
         let recipients: Array<string> = [];
-
-        this.getRecipientIds(recipientList, recipients, 0).then((recip) => {
-            msg.recipients = recip;
-            console.log(recip[0]);
-            this.msgService.sendMessage(msg).then((data) => {
-                if (data == true) {
-                    console.log('Sikeres küldés');
-                } else {
-                    console.log('Sikertelen küldés');
-                }
+        if (this.broadcast) {
+            this.pushToService(msg);
+        } else {
+            this.getRecipientIds(recipientList, recipients, 0).then((recip) => {
+                msg.recipients = recip;
+                this.pushToService(msg);
             });
+        }
+    }
+
+    public pushToService(msg: Message) {
+        this.msgService.sendMessage(msg).then((data) => {
+            if (data == true) {
+                console.log('Sikeres küldés');
+            } else {
+                console.log('Sikertelen küldés');
+            }
         });
     }
 

@@ -5,6 +5,7 @@ import {AuthenticationService} from './auth.service';
 import {Injectable} from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
 import {Observable} from 'rxjs/Rx';
+import {MessagesService} from './ng2-messages/ng2-messages.service';
 
 @Injectable()
 export class  MessageService {
@@ -12,12 +13,10 @@ export class  MessageService {
     private oldMessages: Array<Message>;
     private isFirst: boolean;
 
-    constructor(private http: Http, private auth: AuthenticationService, private authHttp: AuthHttp) {
+    constructor(private http: Http, private auth: AuthenticationService, private authHttp: AuthHttp, private alertMsg: MessagesService) {
         this.isFirst = true;
         this.messages = [];
         this.oldMessages = [];
-        this.getMessages().then((data) => this.oldMessages = data).catch(() => console.log('Hiba az üzenet lekérésnél!'));
-        this.oldMessages = this.messages;
     }
 
     /*
@@ -90,18 +89,20 @@ export class  MessageService {
 
         return this.authHttp.post(restApi + '/message', JSON.stringify(msg.getJson()), options)
             .toPromise().then((data) => {
+                this.alertMsg.success('Sikeres küldés!');
                 return true;
         }).catch((err) => {
             console.log('hiba: ' + err.status);
+            this.alertMsg.error('Hiba a küldésnél!');
             return false;
         });
     }
 
     /*
-     * 5 sec-enként pollozza a szervert, lekéri az üzeneteket, megvizsgálja, hogy van-e új üzenet, ha van akkor visszaadja
+     * 10 sec-enként pollozza a szervert, lekéri az üzeneteket, megvizsgálja, hogy van-e új üzenet, ha van akkor visszaadja
      */
     poll() {
-        return Observable.interval(5000).switchMap(() => Observable.fromPromise(this.getMessages()).map((res) => {
+        return Observable.interval(10000).switchMap(() => Observable.fromPromise(this.getMessages()).map((res) => {
             if (res === null) {
                 this.oldMessages = this.messages;
                 return Observable.throw(null);
