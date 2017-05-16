@@ -40,7 +40,9 @@ export class NewMessageComponent {
 
         return this.authHttp.get(restApi + '/user', { search: param }).toPromise()
             .then((data) => {
-                recipients.push(data.json().id);
+                if (data != null && data.json().id) {
+                    recipients.push(data.json().id);
+                }
                 return this.getRecipientIds(recipientList, recipients, i + 1);
             }).catch((data) => {
                 this.alertMsg.error('Nem létezik ilyen felhasználó!');
