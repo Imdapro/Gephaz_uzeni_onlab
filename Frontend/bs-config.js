@@ -1,8 +1,11 @@
 var proxy = require('http-proxy-middleware');
 
 var apiProxy = proxy('/api', {
-    target: 'http://localhost:8080',
-    changeOrigin: true   // for vhosted sites
+    target: 'http://localhost:8080/webapp',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api' : '/'
+    }
 });
 
 module.exports = {

@@ -2,3 +2,12 @@
 target
 *.DS_Store
 *.iml
+Infrastructure/data
+
+*.js
+
+*.map
+
+*.zip
+
+*.log
