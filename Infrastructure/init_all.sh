@@ -1,5 +1,6 @@
 wget https://github.com/Imdapro/Gephaz_uzeni_onlab/archive/master.zip
-unzip mater.zip
+unzip master.zip &
+wait $!
 mv Gephaz_uzeni_onlab-master gephaz
 
 cd gephaz/Backend
