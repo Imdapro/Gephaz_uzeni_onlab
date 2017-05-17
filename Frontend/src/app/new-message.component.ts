@@ -58,7 +58,9 @@ export class NewMessageComponent {
             this.pushToService(msg);
         } else {
             this.getRecipientIds(recipientList, recipients, 0).then((recip) => {
-                msg.recipients = recip;
+                if (recip && recip.length !== 0) {
+                    msg.recipients = recip;
+                }
                 this.pushToService(msg);
             });
         }
