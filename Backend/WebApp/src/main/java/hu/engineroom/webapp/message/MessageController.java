@@ -48,6 +48,10 @@ public class MessageController extends BaseController<Message, MessageDTO> {
             return ResponseEntity.badRequest().body("Title is missing!");
         }
 
+        if((messageDTO.getRecipients() == null ||messageDTO.getRecipients().isEmpty()) && !messageDTO.isBroadcast()){
+            return ResponseEntity.badRequest().body("No recipients");
+        }
+
         return ResponseEntity.ok(mapDto(messageService.send(messageDTO.toEntity())));
     }
 
